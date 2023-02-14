@@ -19,11 +19,12 @@ private:
 	int velocity;
 	int distance;
 	bool test;
+	char activity;
 
 public:
 
 	//constructor
-	Parameters(int pVelocity = 30, int pDistance = 50, bool pTest = 0) : velocity(pVelocity), distance(pDistance), test(pTest) {
+	Parameters(int pVelocity = 30, int pDistance = 50, bool pTest = 0, char pActivity=' ') : velocity(pVelocity), distance(pDistance), test(pTest), activity(pActivity) {
 		//dynamic memory allocation 
 		//velocity = new int;
 		//distance = new int;
@@ -32,30 +33,49 @@ public:
 
 	}
 	void getData();
+	void increaseV(char activity);
 	friend istream& operator>>(istream& in, Parameters& obiekt);
 
 	//destructor
-	//~Parameters() { delete velocity, distance; }
+	//~Parameters() { delete velocity, distance, test; }
 };
 
 
 //przeciążenie operatora in:
 istream& operator>>(istream& in, Parameters& obiekt) {
-	cout << "Wynik testu: ";
-	in >> obiekt.test;
-	if (obiekt.test == 1) {
-		cout << "OK" << endl;
-		//getData();
+	
+	//pętla tak długo, aż pozytywny test
+	while (obiekt.test == 0)
+	{
+		cout << "Result: ";
+		in >> obiekt.test;
+
+		if (obiekt.test == 1)	{ cout << endl << "System is ready to work." << endl << endl; }
+		else					{ cout << "ERROR! Check manual!" << endl; }
 	}
-	else { cout << "ERROR! Check manual." << endl; }
 
 	return in;
 }
 
+//dodać, żeby wybierało który parametr zmienia!!! BIBLIOTEKA STL
+void Parameters::increaseV(char activity) {
+	switch (activity)
+	{
+	case '+':
+		velocity++;
+		break;
 
+	case '-':
+		velocity--;
+		break;
+	}
+}
+
+
+//wyświetlanie aktualnych zdefiniowanych danych
 void Parameters::getData() {
-	cout << "Defined velocity: " << velocity << endl;
-	cout << "Defined distance: " << distance << endl;
+	cout << "Defined velocity: " << velocity << " km/h" << endl;
+	cout << "Defined distance: " << distance << " m" << endl;
 }
 
 int main()
@@ -63,9 +83,11 @@ int main()
 	Parameters p1;
 	cin >> p1;
 
+	p1.getData();
 
-	
-	//p1.getData();
+	//dodać pętle while z warunkiem, aż nie będzie wciśnięty STOP, a w ciele ma być ???
 
+	p1.increaseV('+');
+	p1.getData();
 }
 
