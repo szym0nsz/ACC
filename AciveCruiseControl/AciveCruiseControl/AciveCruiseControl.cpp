@@ -19,21 +19,23 @@ private:
 	int velocity;
 	int distance;
 	bool test;
-	char activity;
+	char activityV, activityD;
 
 public:
 
 	//constructor
-	Parameters(int pVelocity = 30, int pDistance = 50, bool pTest = 0, char pActivity=' ') : velocity(pVelocity), distance(pDistance), test(pTest), activity(pActivity) {
+	Parameters(int pVelocity = 30, int pDistance = 50, bool pTest = 0, char pActivityV=' ', char pActivityD = ' ')
+		: velocity(pVelocity), distance(pDistance), test(pTest), activityV(pActivityV), activityD(pActivityD) {
 		//dynamic memory allocation 
 		//velocity = new int;
 		//distance = new int;
 		cout << "ACC START SYSTEM" << endl << endl;
 		cout << "Check system..." << endl;
-
 	}
+
 	void getData();
-	void increaseV(char activity);
+	void changeD(char activityD);
+	void changeV(char activity);
 	friend istream& operator>>(istream& in, Parameters& obiekt);
 
 	//destructor
@@ -58,8 +60,8 @@ istream& operator>>(istream& in, Parameters& obiekt) {
 }
 
 //dodać, żeby wybierało który parametr zmienia!!! BIBLIOTEKA STL
-void Parameters::increaseV(char activity) {
-	switch (activity)
+void Parameters::changeV(char activityV) {
+	switch (activityV)
 	{
 	case '+':
 		velocity++;
@@ -67,6 +69,19 @@ void Parameters::increaseV(char activity) {
 
 	case '-':
 		velocity--;
+		break;
+	}
+}
+
+void Parameters::changeD(char activityD) {
+	switch (activityD)
+	{
+	case '+':
+		distance = distance + 10;
+		break;
+
+	case '-':
+		distance = distance - 10;
 		break;
 	}
 }
@@ -87,7 +102,8 @@ int main()
 
 	//dodać pętle while z warunkiem, aż nie będzie wciśnięty STOP, a w ciele ma być ???
 
-	p1.increaseV('+');
+	p1.changeV('+');
+	p1.changeD('-');
 	p1.getData();
 }
 
