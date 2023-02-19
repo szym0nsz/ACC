@@ -52,14 +52,14 @@ istream& operator>>(istream& in, Parameters& obiekt) {
 		cout << "Result: ";
 		in >> obiekt.test;
 
-		if (obiekt.test == 1)	{ cout << endl << "System is ready to work." << endl << endl; }
+		if (obiekt.test == 1)	{ cout << endl << "System is ready to work." << endl << "Enter a command" << endl << endl; }
 		else					{ cout << "ERROR! Check manual!" << endl; }
 	}
 
 	return in;
 }
 
-//dodać, żeby wybierało który parametr zmienia!!! BIBLIOTEKA STL
+//zmiana parametrów
 void Parameters::changeV(char activityV) {
 	switch (activityV)
 	{
@@ -86,24 +86,51 @@ void Parameters::changeD(char activityD) {
 	}
 }
 
-
 //wyświetlanie aktualnych zdefiniowanych danych
 void Parameters::getData() {
 	cout << "Defined velocity: " << velocity << " km/h" << endl;
 	cout << "Defined distance: " << distance << " m" << endl;
 }
 
+//pętla do wyboru
+void command() {
+	//variable definition;
+	int choice = 0;
+
+	cout << "Wpisać polecenie! (Wypisać wszystkie funkcje)" << endl;
+	cin >> choice;
+
+	switch (choice)
+	{
+	case 1:
+		//odwołanie do funkcji
+		cout << "OK";
+		break;
+
+	case 2:
+		//odwołanie do funkcji
+		break;
+	}
+}
+
 int main()
 {
+	//parametry do zmiany 
+
 	Parameters p1;
 	cin >> p1;
 
 	p1.getData();
 
+	command();
+	
+	//koniec testów - start programu!
 	//dodać pętle while z warunkiem, aż nie będzie wciśnięty STOP, a w ciele ma być ???
-
 	p1.changeV('+');
 	p1.changeD('-');
 	p1.getData();
+
+
+
 }
 
