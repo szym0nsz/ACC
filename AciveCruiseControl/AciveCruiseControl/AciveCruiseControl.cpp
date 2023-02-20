@@ -6,7 +6,6 @@ using namespace std;
 //system modes
 void readyMode() {};
 void errorTest() {};
-void emergencyStop() {};
 void adaptiveMode() {};
 void passiveMode() {};
 
@@ -16,16 +15,16 @@ class Parameters
 {
 private:
 	//variables
-	int velocity;
-	int distance;
+	int velocity, velocityDefined;
+	int distance, distanceDefined;
 	bool test;
 	char activityV, activityD;
 
 public:
 
 	//constructor
-	Parameters(int pVelocity = 30, int pDistance = 50, bool pTest = 0, char pActivityV=' ', char pActivityD = ' ')
-		: velocity(pVelocity), distance(pDistance), test(pTest), activityV(pActivityV), activityD(pActivityD) {
+	Parameters(int pVelocity = 30, int pVelocityDefined = 30, int pDistance = 50, int pDistanceDefined = 50, bool pTest = 0, char pActivityV=' ', char pActivityD = ' ')
+		: velocity(pVelocity), velocityDefined(pVelocityDefined), distance(pDistance), distanceDefined(pDistanceDefined), test(pTest), activityV(pActivityV), activityD(pActivityD){
 		//dynamic memory allocation 
 		//velocity = new int;
 		//distance = new int;
@@ -34,8 +33,10 @@ public:
 	}
 
 	void getData();
+	void definedData();
+	void command();
 	void changeD(char activityD);
-	void changeV(char activity);
+	void changeV(char activityV);
 	friend istream& operator>>(istream& in, Parameters& obiekt);
 
 	//destructor
@@ -52,7 +53,7 @@ istream& operator>>(istream& in, Parameters& obiekt) {
 		cout << "Result: ";
 		in >> obiekt.test;
 
-		if (obiekt.test == 1)	{ cout << endl << "System is ready to work." << endl << "Enter a command" << endl << endl; }
+		if (obiekt.test == 1)	{ cout << endl << "System is ready to work." << endl << endl; }
 		else					{ cout << "ERROR! Check manual!" << endl; }
 	}
 
@@ -86,32 +87,82 @@ void Parameters::changeD(char activityD) {
 	}
 }
 
+void emergencyStop() { cout << "Emergency Stop!"; };
+
 //wyświetlanie aktualnych zdefiniowanych danych
+void Parameters::definedData() {
+	cout << "Defined velocity: " << velocityDefined << " km/h" << endl;
+	cout << "Defined distance: " << distanceDefined << " m" << endl;
+}
+
 void Parameters::getData() {
-	cout << "Defined velocity: " << velocity << " km/h" << endl;
-	cout << "Defined distance: " << distance << " m" << endl;
+	cout << "Velocity: " << velocity << " km/h" << endl;
+	cout << "Distance: " << distance << " m" << endl;
 }
 
 //pętla do wyboru
-void command() {
-	//variable definition;
-	int choice = 0;
+void Parameters::command(){
+	//variable definition
+	int choice = 1;
 
-	cout << "Wpisać polecenie! (Wypisać wszystkie funkcje)" << endl;
+	while (choice != 0)
+	{
+		cout << endl << "Enter a command" << endl;
+		cout << "0/ RESET" << endl;
+		cout << "1/ SET" << endl;
+		cout << "2/ Velocity +" << endl;
+		cout << "3/ Velocity -" << endl;
+		cout << "4/ Distance +" << endl;
+		cout << "5/ Distance -" << endl;
+		cout << "6/ ACC" << endl;
+		cout << "7/ CC" << endl;
+		cout << "Choice: ";
 	cin >> choice;
 
+		cout << endl;
 	switch (choice)
 	{
+		case 0:
+			emergencyStop();
+			break;
+
 	case 1:
-		//odwołanie do funkcji
-		cout << "OK";
+			distanceDefined = distance;
+			velocityDefined = velocity;
+			definedData();
 		break;
 
 	case 2:
+			changeV('+');
+			getData();
+			break;
+
+		case 3:
+			changeV('-');
+			getData();
+			break;
+
+		case 4:
+			changeD('+');
+			getData();
+			break;
+
+		case 5:
+			changeD('-');
+			getData();
+			break;
+
+		case 6:
+			//odwołanie do funkcji
+			break;
+
+		case 7:
 		//odwołanie do funkcji
 		break;
 	}
 }
+}
+
 
 int main()
 {
@@ -122,13 +173,13 @@ int main()
 
 	p1.getData();
 
-	command();
+	p1.command();
 	
 	//koniec testów - start programu!
 	//dodać pętle while z warunkiem, aż nie będzie wciśnięty STOP, a w ciele ma być ???
-	p1.changeV('+');
-	p1.changeD('-');
-	p1.getData();
+	//p1.changeV('+');
+	//p1.changeD('-');
+	//p1.getData();
 
 
 
