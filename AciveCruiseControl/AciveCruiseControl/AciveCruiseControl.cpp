@@ -3,12 +3,6 @@
 
 using namespace std;
 
-//system modes
-void readyMode() {};
-void errorTest() {};
-void adaptiveMode() {};
-void passiveMode() {};
-
 // na gotowo_________________
 
 class Parameters
@@ -17,14 +11,16 @@ private:
 	//variables
 	int velocity, velocityDefined;
 	int distance, distanceDefined;
+	int choice, choiceCruise;
 	bool test;
 	char activityV, activityD;
 
 public:
 
 	//constructor
-	Parameters(int pVelocity = 30, int pVelocityDefined = 30, int pDistance = 50, int pDistanceDefined = 50, bool pTest = 0, char pActivityV=' ', char pActivityD = ' ')
-		: velocity(pVelocity), velocityDefined(pVelocityDefined), distance(pDistance), distanceDefined(pDistanceDefined), test(pTest), activityV(pActivityV), activityD(pActivityD){
+	Parameters(int pVelocity = 30, int pVelocityDefined = 30, int pDistance = 50, int pDistanceDefined = 50, bool pTest = 0, char pActivityV = ' ', char pActivityD = ' ', 
+		int pChoice = 1, int pChoiceCruise = 1) : velocity(pVelocity), velocityDefined(pVelocityDefined), distance(pDistance), distanceDefined(pDistanceDefined), test(pTest), 
+		activityV(pActivityV), activityD(pActivityD), choice(pChoice), choiceCruise(pChoiceCruise) {
 		//dynamic memory allocation 
 		//velocity = new int;
 		//distance = new int;
@@ -60,7 +56,7 @@ istream& operator>>(istream& in, Parameters& obiekt) {
 	return in;
 }
 
-//zmiana parametrów
+//zmiana parametrów: velocity, distance
 void Parameters::changeV(char activityV) {
 	switch (activityV)
 	{
@@ -91,8 +87,18 @@ void emergencyStop() { cout << "Emergency Stop!"; };
 
 //wyświetlanie aktualnych zdefiniowanych danych
 void Parameters::definedData() {
+	//ACC
+	if (choiceCruise == 1)
+	{
 	cout << "Defined velocity: " << velocityDefined << " km/h" << endl;
 	cout << "Defined distance: " << distanceDefined << " m" << endl;
+}
+
+	//Normal
+	else
+	{
+		cout << "Defined velocity: " << velocityDefined << " km/h" << endl;
+	}
 }
 
 void Parameters::getData() {
@@ -102,8 +108,8 @@ void Parameters::getData() {
 
 //pętla do wyboru
 void Parameters::command(){
-	//variable definition
-	int choice = 1;
+	//definition with start variable
+	int choiceCruise = 0;
 
 	while (choice != 0)
 	{
@@ -114,9 +120,8 @@ void Parameters::command(){
 		cout << "3/ Velocity -" << endl;
 		cout << "4/ Distance +" << endl;
 		cout << "5/ Distance -" << endl;
-		cout << "6/ ACC" << endl;
-		cout << "7/ CC" << endl;
-		cout << "Choice: ";
+		cout << "6/ Cruise Controll type:" << endl;
+		cout << "Choice: " << endl;
 	cin >> choice;
 
 		cout << endl;
@@ -154,11 +159,9 @@ void Parameters::command(){
 
 		case 6:
 			//odwołanie do funkcji
+			cout<< '\t' << "1. Adaptiv" << endl << '\t' << "2. Normal" << endl;
+			choiceCruise();
 			break;
-
-		case 7:
-		//odwołanie do funkcji
-		break;
 	}
 }
 }
@@ -180,7 +183,6 @@ int main()
 	//p1.changeV('+');
 	//p1.changeD('-');
 	//p1.getData();
-
 
 
 }
