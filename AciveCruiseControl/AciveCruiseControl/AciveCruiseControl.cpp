@@ -19,7 +19,7 @@ public:
 
 	//constructor
 	Parameters(int pVelocity = 30, int pVelocityDefined = 30, int pDistance = 50, int pDistanceDefined = 50, bool pTest = 0, char pActivityV = ' ', char pActivityD = ' ', 
-		int pChoice = 1, int pChoiceCruise = 1) : velocity(pVelocity), velocityDefined(pVelocityDefined), distance(pDistance), distanceDefined(pDistanceDefined), test(pTest), 
+		int pChoice = 1, int pChoiceCruise = 0) : velocity(pVelocity), velocityDefined(pVelocityDefined), distance(pDistance), distanceDefined(pDistanceDefined), test(pTest),
 		activityV(pActivityV), activityD(pActivityD), choice(pChoice), choiceCruise(pChoiceCruise) {
 		//dynamic memory allocation 
 		//velocity = new int;
@@ -27,12 +27,13 @@ public:
 		cout << "ACC START SYSTEM" << endl << endl;
 		cout << "Check system..." << endl;
 	}
-
 	void getData();
 	void definedData();
 	void command();
 	void changeD(char activityD);
 	void changeV(char activityV);
+	void CruiseType();
+
 	friend istream& operator>>(istream& in, Parameters& obiekt);
 
 	//destructor
@@ -55,6 +56,8 @@ istream& operator>>(istream& in, Parameters& obiekt) {
 
 	return in;
 }
+
+void emergencyStop() { cout << "Emergency Stop!"; };
 
 //zmiana parametrów: velocity, distance
 void Parameters::changeV(char activityV) {
@@ -83,21 +86,26 @@ void Parameters::changeD(char activityD) {
 	}
 }
 
-void emergencyStop() { cout << "Emergency Stop!"; };
+void Parameters::CruiseType() {
+
+	cout << "Działanie.";
+};
 
 //wyświetlanie aktualnych zdefiniowanych danych
 void Parameters::definedData() {
 	//ACC
-	if (choiceCruise == 1)
+	switch (choiceCruise)
 	{
+		//ACC
+	case 1:
 	cout << "Defined velocity: " << velocityDefined << " km/h" << endl;
 	cout << "Defined distance: " << distanceDefined << " m" << endl;
-}
+		break;
 
 	//Normal
-	else
-	{
+	case 2:
 		cout << "Defined velocity: " << velocityDefined << " km/h" << endl;
+		break;
 	}
 }
 
@@ -108,8 +116,6 @@ void Parameters::getData() {
 
 //pętla do wyboru
 void Parameters::command(){
-	//definition with start variable
-	int choiceCruise = 0;
 
 	while (choice != 0)
 	{
@@ -129,6 +135,16 @@ void Parameters::command(){
 	{
 		case 0:
 			emergencyStop();
+			break;
+
+		case 6:
+			//odwołanie do funkcji
+			cout << '\t' << "1. Adaptiv" << endl << '\t' << "2. Normal" << endl;
+
+			//type choice
+			choiceCruise = 2;
+
+			CruiseType();
 			break;
 
 	case 1:
@@ -156,12 +172,6 @@ void Parameters::command(){
 			changeD('-');
 			getData();
 			break;
-
-		case 6:
-			//odwołanie do funkcji
-			cout<< '\t' << "1. Adaptiv" << endl << '\t' << "2. Normal" << endl;
-			choiceCruise();
-			break;
 	}
 }
 }
@@ -178,12 +188,6 @@ int main()
 
 	p1.command();
 	
-	//koniec testów - start programu!
-	//dodać pętle while z warunkiem, aż nie będzie wciśnięty STOP, a w ciele ma być ???
-	//p1.changeV('+');
-	//p1.changeD('-');
-	//p1.getData();
-
 
 }
 
