@@ -50,8 +50,8 @@ istream& operator>>(istream& in, Parameters& obiekt) {
 		cout << "Result: ";
 		in >> obiekt.test;
 
-		if (obiekt.test == 1)	{ cout << endl << "System is ready to work." << endl << endl; }
-		else					{ cout << "ERROR! Check manual!" << endl; }
+		if (obiekt.test == 1) { cout << endl << "System is ready to work." << endl << endl; }
+		else { cout << "ERROR! Check manual!" << endl; }
 	}
 
 	return in;
@@ -88,18 +88,30 @@ void Parameters::changeD(char activityD) {
 
 void Parameters::CruiseType() {
 
-	cout << "Działanie.";
-};
-
-//wyświetlanie aktualnych zdefiniowanych danych
-void Parameters::definedData() {
-	//ACC
 	switch (choiceCruise)
 	{
 		//ACC
 	case 1:
-	cout << "Defined velocity: " << velocityDefined << " km/h" << endl;
-	cout << "Defined distance: " << distanceDefined << " m" << endl;
+		cout << "ACC: " << endl;
+		break;
+
+		//Normal
+	case 2:
+		cout << "CC: " << endl;
+		break;
+	}
+
+};
+
+//wyświetlanie aktualnych zdefiniowanych danych
+void Parameters::definedData() {
+
+	switch (choiceCruise)
+	{
+		//ACC
+	case 1:
+		cout << "Defined velocity: " << velocityDefined << " km/h" << endl;
+		cout << "Defined distance: " << distanceDefined << " m" << endl;
 		break;
 
 	//Normal
@@ -115,7 +127,7 @@ void Parameters::getData() {
 }
 
 //pętla do wyboru
-void Parameters::command(){
+void Parameters::command() {
 
 	while (choice != 0)
 	{
