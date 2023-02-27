@@ -11,6 +11,7 @@ private:
 	//variables
 	int velocity, velocityDefined;
 	int distance, distanceDefined;
+	int distanceObstacle;
 	int choice, choiceCruise;
 	bool test;
 	char activityV, activityD;
@@ -19,12 +20,13 @@ public:
 
 	//constructor
 	Parameters(int pVelocity = 30, int pVelocityDefined = 30, int pDistance = 50, int pDistanceDefined = 50, bool pTest = 0, char pActivityV = ' ', char pActivityD = ' ', 
-		int pChoice = 1, int pChoiceCruise = 0) : velocity(pVelocity), velocityDefined(pVelocityDefined), distance(pDistance), distanceDefined(pDistanceDefined), test(pTest),
-		activityV(pActivityV), activityD(pActivityD), choice(pChoice), choiceCruise(pChoiceCruise) {
+		int pChoice = 1, int pChoiceCruise = 1, int distanceObstacle = 10) : velocity(pVelocity), velocityDefined(pVelocityDefined), distance(pDistance), 
+		distanceDefined(pDistanceDefined), test(pTest), activityV(pActivityV), activityD(pActivityD), choice(pChoice), choiceCruise(pChoiceCruise), 
+		distanceObstacle(pDistanceObstacle){
 		//dynamic memory allocation 
 		//velocity = new int;
 		//distance = new int;
-		cout << "ACC START SYSTEM" << endl << endl;
+		cout << "---ACC START SYSTEM---" << endl << endl;
 		cout << "Check system..." << endl;
 	}
 	void getData();
@@ -92,15 +94,31 @@ void Parameters::CruiseType() {
 	{
 		//ACC
 	case 1:
-		cout << "ACC: " << endl;
+		cout << endl << "---Adaptiv cruise control---" << endl;
+		//definedData();
+		distanceObstacle = 10;
+
+		//działanie sensorów
+		if (distanceObstacle<distanceDefined)
+		{
+			cout << "!BRAKE!" << endl;
+			//pętla spowalniająca prędkość do conajmniej 10m od przeszkody
+			for (int i = (distanceDefined - distanceObstacle)/10; i > distanceDefined; i--)
+			{
+				velocityDefined = velocityDefined - 10;
+
+				//wyświetlenie prędkości z jaką jedzie
+				definedData();
+			}
+		}
 		break;
 
 		//Normal
 	case 2:
-		cout << "CC: " << endl;
+		cout << endl << "---Cruise control--- " << endl;
+		definedData();
 		break;
 	}
-
 };
 
 //wyświetlanie aktualnych zdefiniowanych danych
@@ -126,12 +144,12 @@ void Parameters::getData() {
 	cout << "Distance: " << distance << " m" << endl;
 }
 
-//pętla do wyboru
+//pętla wyboru
 void Parameters::command() {
 
 	while (choice != 0)
 	{
-		cout << endl << "Enter a command" << endl;
+		cout << endl << "---Enter a command---" << endl;
 		cout << "0/ RESET" << endl;
 		cout << "1/ SET" << endl;
 		cout << "2/ Velocity +" << endl;
@@ -139,7 +157,7 @@ void Parameters::command() {
 		cout << "4/ Distance +" << endl;
 		cout << "5/ Distance -" << endl;
 		cout << "6/ Cruise Controll type:" << endl;
-		cout << "Choice: " << endl;
+		cout << "Choice: ";
 	cin >> choice;
 
 		cout << endl;
@@ -151,11 +169,9 @@ void Parameters::command() {
 
 		case 6:
 			//odwołanie do funkcji
-			cout << '\t' << "1. Adaptiv" << endl << '\t' << "2. Normal" << endl;
+			cout << '\t' << "1. Adaptiv" << endl << '\t' << "2. Normal" << endl<<"enter type: ";
 
-			//type choice
-			choiceCruise = 2;
-
+			cin >> choiceCruise;
 			CruiseType();
 			break;
 
@@ -195,8 +211,6 @@ int main()
 
 	Parameters p1;
 	cin >> p1;
-
-	p1.getData();
 
 	p1.command();
 	
