@@ -95,7 +95,8 @@ void Parameters::CruiseType() {
 		//ACC
 	case 1:
 		cout << endl << "---Adaptiv cruise control---" << endl;
-		//definedData();
+		definedData();
+		cout << endl;
 		distanceObstacle = 10;
 
 		//działanie sensorów
@@ -103,7 +104,7 @@ void Parameters::CruiseType() {
 		{
 			cout << "!BRAKE!" << endl;
 			//pętla spowalniająca prędkość do conajmniej 10m od przeszkody
-			for (int i = (distanceDefined - distanceObstacle)/10; i > distanceDefined; i--)
+			for (int i = (distanceDefined - distanceObstacle)/10; i < 0; i--)
 			{
 				velocityDefined = velocityDefined - 10;
 
@@ -111,6 +112,8 @@ void Parameters::CruiseType() {
 				definedData();
 			}
 		}
+		cout << endl;
+		definedData();
 		break;
 
 		//Normal
