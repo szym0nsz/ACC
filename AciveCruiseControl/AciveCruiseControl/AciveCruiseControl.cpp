@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <cmath>
 //#include "Driver.h"
 
 using namespace std;
@@ -89,6 +90,9 @@ void Parameters::changeD(char activityD) {
 
 void Parameters::CruiseType() {
 
+	//dystans na sekundę - zerowanie
+	double D = 0;
+	
 	switch (choiceCruise)
 	{
 		//ACC
@@ -96,25 +100,24 @@ void Parameters::CruiseType() {
 		cout << endl << "---Adaptiv cruise control---" << endl;
 		definedData();
 		cout << endl;
-		distanceObstacle = 40;
+		distanceObstacle = 10;
 
 		//działanie sensorów
 		do
 		{
-			cout << "!BRAKE!" << endl;
-			//pętla spowalniająca prędkość do conajmniej 10m od przeszkody
-			for (int i = 0; i = ((distanceDefined - distanceObstacle) / 10) + 1; i++)
-			{
-				//dodać przeliczanie prędkości!!!
-				velocityDefined = velocityDefined - 10;
+			cout << endl << "!BRAKE!" << endl;
+			velocity = velocity - 10;
+
+			//przeliczenie dystansu na sekundę
+			D = ceil(velocity * 0.28);
+			//cout << D;
+			distanceObstacle = distanceObstacle - D;
+			cout << "rzeczywisty dystans: "<<distanceObstacle << endl;
 
 				//wyświetlenie prędkości z jaką jedzie
-				definedData();
-			}
+			getData();
+			
 		} while (distanceObstacle <= distanceDefined);
-
-		cout << endl;
-		definedData();
 		break;
 
 		//Normal
