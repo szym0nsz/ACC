@@ -21,8 +21,7 @@ public:
 	//constructor
 	Parameters(int pVelocity = 30, int pVelocityDefined = 30, int pDistance = 50, int pDistanceDefined = 50, bool pTest = 0, char pActivityV = ' ', char pActivityD = ' ', 
 		int pChoice = 1, int pChoiceCruise = 1, int distanceObstacle = 10) : velocity(pVelocity), velocityDefined(pVelocityDefined), distance(pDistance), 
-		distanceDefined(pDistanceDefined), test(pTest), activityV(pActivityV), activityD(pActivityD), choice(pChoice), choiceCruise(pChoiceCruise), 
-		distanceObstacle(pDistanceObstacle){
+		distanceDefined(pDistanceDefined), test(pTest), activityV(pActivityV), activityD(pActivityD), choice(pChoice), choiceCruise(pChoiceCruise){
 		//dynamic memory allocation 
 		//velocity = new int;
 		//distance = new int;
@@ -97,21 +96,23 @@ void Parameters::CruiseType() {
 		cout << endl << "---Adaptiv cruise control---" << endl;
 		definedData();
 		cout << endl;
-		distanceObstacle = 10;
+		distanceObstacle = 40;
 
 		//działanie sensorów
-		if (distanceObstacle<distanceDefined)
+		do
 		{
 			cout << "!BRAKE!" << endl;
 			//pętla spowalniająca prędkość do conajmniej 10m od przeszkody
-			for (int i = (distanceDefined - distanceObstacle)/10; i < 0; i--)
+			for (int i = 0; i = ((distanceDefined - distanceObstacle) / 10) + 1; i++)
 			{
+				//dodać przeliczanie prędkości!!!
 				velocityDefined = velocityDefined - 10;
 
 				//wyświetlenie prędkości z jaką jedzie
 				definedData();
 			}
-		}
+		} while (distanceObstacle <= distanceDefined);
+
 		cout << endl;
 		definedData();
 		break;
@@ -210,8 +211,7 @@ void Parameters::command() {
 
 int main()
 {
-	//parametry do zmiany 
-
+	//otworzenie obiektu p1
 	Parameters p1;
 	cin >> p1;
 
