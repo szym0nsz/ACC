@@ -89,7 +89,6 @@ void Parameters::changeD(char activityD) {
 }
 
 void Parameters::CruiseType() {
-
 	//dystans na sekundę - zerowanie
 	double D = 0;
 	
@@ -222,4 +221,3 @@ int main()
 	
 
 }
-
