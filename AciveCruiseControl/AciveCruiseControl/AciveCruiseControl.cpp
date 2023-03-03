@@ -100,41 +100,23 @@ void Parameters::CruiseType() {
 		cout << endl << "---Adaptiv cruise control---" << endl;
 		definedData();
 		cout << endl;
-		distanceObstacle = 10;
+		distanceObstacle = 20;
 
-		for (auto i = 0; i < ceil(sqrt((distanceDefined - distanceObstacle) / 10)); i++)
-		{
-			cout << endl << "!BRAKE!" << endl;
-			velocity = velocity - 10;
-
-			//przeliczenie dystansu na sekundę
-			s = ceil(velocity * 0.28);
-			//cout << D;
-			distanceObstacle = distanceObstacle - s;
-			cout << "Virtual distance: " << distanceObstacle << endl;
-			getData();
-
-		}
-
-		/*działanie sensorów
+		//działanie sensorów
 		do
 		{
+			//obliczenie czasu potrzebnego do hamowania
+			t = ceil(sqrt((distanceDefined - distanceObstacle) / 2.78));
+
 			cout << endl << "!BRAKE!" << endl;
 			velocity = velocity - 10;
 
-			//obliczenie czasu potrzebnego do hamowania
-			t = ceil(sqrt((distanceDefined - distanceObstacle) / 10));
-
-			//przeliczenie dystansu na sekundę
-			s = ceil(velocity * 0.28);
-			//cout << D;
-			distanceObstacle = distanceObstacle - s;
-			cout << "rzeczywisty dystans: "<<distanceObstacle << endl;
-
-				//wyświetlenie prędkości z jaką jedzie
-			getData();
-			
-		} while (distanceObstacle <= distanceDefined);
+				//obliczenie rzeczywistego dystansu
+				distanceObstacle = distanceDefined - ceil(((2,78 * t ^ 2) / 2));
+			cout << "Virtual distance: " << distanceObstacle << " m" << endl;
+				getData();
+	
+		} while (distanceObstacle < distanceDefined);
 		break;
 
 		//Normal
@@ -237,5 +219,4 @@ int main()
 
 	p1.command();
 	
-
 }
