@@ -90,7 +90,8 @@ void Parameters::changeD(char activityD) {
 
 void Parameters::CruiseType() {
 	//dystans na sekundę - zerowanie
-	double D = 0;
+	auto s = 0;
+	auto t = 0;
 	
 	switch (choiceCruise)
 	{
@@ -101,16 +102,33 @@ void Parameters::CruiseType() {
 		cout << endl;
 		distanceObstacle = 10;
 
-		//działanie sensorów
-		do
+		for (auto i = 0; i < ceil(sqrt((distanceDefined - distanceObstacle) / 10)); i++)
 		{
 			cout << endl << "!BRAKE!" << endl;
 			velocity = velocity - 10;
 
 			//przeliczenie dystansu na sekundę
-			D = ceil(velocity * 0.28);
+			s = ceil(velocity * 0.28);
 			//cout << D;
-			distanceObstacle = distanceObstacle - D;
+			distanceObstacle = distanceObstacle - s;
+			cout << "Virtual distance: " << distanceObstacle << endl;
+			getData();
+
+		}
+
+		/*działanie sensorów
+		do
+		{
+			cout << endl << "!BRAKE!" << endl;
+			velocity = velocity - 10;
+
+			//obliczenie czasu potrzebnego do hamowania
+			t = ceil(sqrt((distanceDefined - distanceObstacle) / 10));
+
+			//przeliczenie dystansu na sekundę
+			s = ceil(velocity * 0.28);
+			//cout << D;
+			distanceObstacle = distanceObstacle - s;
 			cout << "rzeczywisty dystans: "<<distanceObstacle << endl;
 
 				//wyświetlenie prędkości z jaką jedzie
