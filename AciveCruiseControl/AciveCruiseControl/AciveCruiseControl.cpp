@@ -10,9 +10,9 @@ class Parameters
 {
 private:
 	//variables
-	int velocity, velocityDefined;
-	int distance, distanceDefined;
-	int distanceObstacle;
+	unsigned int velocity, velocityDefined;
+	unsigned int distance, distanceDefined;
+	unsigned int distanceObstacle;
 	int choice, choiceCruise;
 	bool test;
 	char activityV, activityD;
@@ -20,9 +20,10 @@ private:
 public:
 
 	//constructor
-	Parameters(int pVelocity = 30, int pVelocityDefined = 30, int pDistance = 50, int pDistanceDefined = 50, bool pTest = 0, char pActivityV = ' ', char pActivityD = ' ', 
-		int pChoice = 1, int pChoiceCruise = 1, int distanceObstacle = 10) : velocity(pVelocity), velocityDefined(pVelocityDefined), distance(pDistance), 
-		distanceDefined(pDistanceDefined), test(pTest), activityV(pActivityV), activityD(pActivityD), choice(pChoice), choiceCruise(pChoiceCruise){
+	Parameters(unsigned int pVelocity = 30, unsigned int pVelocityDefined = 30, unsigned int pDistance = 50, unsigned int pDistanceDefined = 50, bool pTest = 0, 
+		char pActivityV = ' ', char pActivityD = ' ', int pChoice = 1, int pChoiceCruise = 1, int distanceObstacle = 10) : velocity(pVelocity), 
+		velocityDefined(pVelocityDefined), distance(pDistance), distanceDefined(pDistanceDefined), test(pTest), activityV(pActivityV), activityD(pActivityD), 
+		choice(pChoice), choiceCruise(pChoiceCruise){
 		//dynamic memory allocation 
 		//velocity = new int;
 		//distance = new int;
@@ -100,7 +101,7 @@ void Parameters::CruiseType() {
 		cout << endl << "---Adaptiv cruise control---" << endl;
 		definedData();
 		cout << endl;
-		distanceObstacle = 20;
+		distanceObstacle = 10;
 
 		//działanie sensorów
 		do
@@ -108,14 +109,17 @@ void Parameters::CruiseType() {
 			//obliczenie czasu potrzebnego do hamowania
 			t = ceil(sqrt((distanceDefined - distanceObstacle) / 2.78));
 
+			for (int i = 0; i >= t; i++)
+			{
 			cout << endl << "!BRAKE!" << endl;
-			velocity = velocity - 10;
 
 				//obliczenie rzeczywistego dystansu
-				distanceObstacle = distanceDefined - ceil(((2,78 * t ^ 2) / 2));
-			cout << "Virtual distance: " << distanceObstacle << " m" << endl;
+				distanceObstacle = distanceDefined - ceil(((2.78 * t * t) / 2));
+				cout << "Virtual distance: " << distanceObstacle << endl;
+
+				velocity = velocity - 10;
 				getData();
-	
+			}	
 		} while (distanceObstacle < distanceDefined);
 		break;
 
