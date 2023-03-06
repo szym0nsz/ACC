@@ -66,11 +66,12 @@ void emergencyStop() { cout << "Emergency Stop!"; };
 void Parameters::changeV(char activityV) {
 	switch (activityV)
 	{
-	case '+':
+		//wyjątek11
 		velocity++;
 		break;
 
 	case '-':
+		//wyjątek12
 		velocity--;
 		break;
 	}
@@ -80,10 +81,12 @@ void Parameters::changeD(char activityD) {
 	switch (activityD)
 	{
 	case '+':
+		//wyjątek21
 		distance = distance + 10;
 		break;
 
 	case '-':
+		//wyjątek22
 		distance = distance - 10;
 		break;
 	}
