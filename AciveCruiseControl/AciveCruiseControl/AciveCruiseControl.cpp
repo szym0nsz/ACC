@@ -115,6 +115,7 @@ void Parameters::CruiseType() {
 			{
 			cout << endl << "!BRAKE!" << endl;
 
+
 				//obliczenie rzeczywistego dystansu
 				distanceObstacle = distanceObstacle + ceil(((2.78 * t * t) / 2));
 				cout << "Virtual distance: " << distanceObstacle << endl;
