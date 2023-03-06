@@ -66,12 +66,11 @@ void emergencyStop() { cout << "Emergency Stop!"; };
 void Parameters::changeV(char activityV) {
 	switch (activityV)
 	{
-		//wyjątek11
+	case '+':
 		velocity++;
 		break;
 
 	case '-':
-		//wyjątek12
 		velocity--;
 		break;
 	}
@@ -104,7 +103,7 @@ void Parameters::CruiseType() {
 		cout << endl << "---Adaptiv cruise control---" << endl;
 		definedData();
 		cout << endl;
-		distanceObstacle = 10;
+		distanceObstacle = 20;
 
 		//działanie sensorów
 		do
@@ -112,12 +111,12 @@ void Parameters::CruiseType() {
 			//obliczenie czasu potrzebnego do hamowania
 			t = ceil(sqrt((distanceDefined - distanceObstacle) / 2.78));
 
-			for (int i = 0; i >= t; i++)
+			for (int i = 0; i = t; i++)
 			{
 			cout << endl << "!BRAKE!" << endl;
 
 				//obliczenie rzeczywistego dystansu
-				distanceObstacle = distanceDefined - ceil(((2.78 * t * t) / 2));
+				distanceObstacle = distanceObstacle + ceil(((2.78 * t * t) / 2));
 				cout << "Virtual distance: " << distanceObstacle << endl;
 
 				velocity = velocity - 10;
@@ -196,22 +195,74 @@ void Parameters::command() {
 
 	case 2:
 			changeV('+');
+
+			//wyłapanie wyjątku powyżej 210km/h
+			try {
+				if (velocity > 210) {
+					velocity--;
+					throw 210; 
+				}
 			getData();
+			}
+			catch (int excV) { 
+				//zamiast getData();
+			cout << "Velocity: " << excV << " km/h" << endl;
+			cout << "Distance: " << distance << " m" << endl;
+			}
 			break;
 
 		case 3:
 			changeV('-');
+
+			//wyłapanie wyjątku poniżej 30km/h
+			try {
+				if (velocity < 30) {
+					velocity++;
+					throw 30;
+				}
 			getData();
+			}
+			catch (int excV) {
+				//zamiast getData();
+				cout << "Velocity: " << excV << " km/h" << endl;
+				cout << "Distance: " << distance << " m" << endl;
+			}
 			break;
 
 		case 4:
 			changeD('+');
+
+			//wyłapanie wyjątku powyżej 200m
+			try {
+				if (distance > 200) {
+					distance = distance - 10;
+					throw 200;
+				}
 			getData();
+			}
+			catch (int excD) {
+				//zamiast getData();
+				cout << "Velocity: " << velocity << " km/h" << endl;
+				cout << "Distance: " << excD << " m" << endl;
+			}
 			break;
 
 		case 5:
 			changeD('-');
+
+			//wyłapanie wyjątku poniżej 50m
+			try {
+				if (distance < 50) {
+					distance = distance + 10;
+					throw 50;
+				}
 			getData();
+			}
+			catch (int excD) {
+				//zamiast getData();
+				cout << "Velocity: " << velocity << " km/h" << endl;
+				cout << "Distance: " << excD << " m" << endl;
+			}
 			break;
 	}
 }
