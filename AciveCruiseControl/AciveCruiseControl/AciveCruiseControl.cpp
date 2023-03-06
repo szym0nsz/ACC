@@ -108,22 +108,19 @@ void Parameters::CruiseType() {
 		//działanie sensorów
 		do
 		{
-			//obliczenie czasu potrzebnego do hamowania
-			t = ceil(sqrt((distanceDefined - distanceObstacle) / 2.78));
-
-			for (int i = 0; i = t; i++)
-			{
 			cout << endl << "!BRAKE!" << endl;
 
+			//obliczenie dystansu
+			distanceObstacle = distanceObstacle + floor(velocity * 0.278);
+			cout << "Virtual distance: " << distanceObstacle << endl;
 
-				//obliczenie rzeczywistego dystansu
-				distanceObstacle = distanceObstacle + ceil(((2.78 * t * t) / 2));
-				cout << "Virtual distance: " << distanceObstacle << endl;
+			//obliczenie prędkości
+			velocity = velocity - 10;
+			cout << "Virtual velocity: " << velocity << endl << endl;
 
-				velocity = velocity - 10;
+			//naprawić z tym definiowaniem prędkości
 				getData();
-			}	
-		} while (distanceObstacle < distanceDefined);
+		} while (distanceObstacle <= distanceDefined);
 		break;
 
 		//Normal
