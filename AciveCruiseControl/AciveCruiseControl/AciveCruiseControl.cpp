@@ -105,7 +105,7 @@ void Parameters::CruiseType() {
 		cout << endl;
 		distanceObstacle = 20;
 
-		//działanie sensorów
+		//działanie sensora
 		do
 		{
 			cout << endl << "!BRAKE!" << endl;
