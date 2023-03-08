@@ -1,10 +1,9 @@
 ﻿#include <iostream>
 #include <cmath>
+#include <stdio.h>
 //#include "Driver.h"
 
 using namespace std;
-
-// na gotowo_________________
 
 class Parameters
 {
@@ -21,7 +20,7 @@ public:
 
 	//constructor
 	Parameters(unsigned int pVelocity = 30, unsigned int pVelocityDefined = 30, unsigned int pDistance = 50, unsigned int pDistanceDefined = 50, bool pTest = 0, 
-		char pActivityV = ' ', char pActivityD = ' ', int pChoice = 1, int pChoiceCruise = 1, int distanceObstacle = 10) : velocity(pVelocity), 
+		char pActivityV = ' ', char pActivityD = ' ', int pChoice = 1, int pChoiceCruise = 1, int distanceObstacle = 50) : velocity(pVelocity), 
 		velocityDefined(pVelocityDefined), distance(pDistance), distanceDefined(pDistanceDefined), test(pTest), activityV(pActivityV), activityD(pActivityD), 
 		choice(pChoice), choiceCruise(pChoiceCruise){
 		//dynamic memory allocation 
@@ -103,24 +102,64 @@ void Parameters::CruiseType() {
 		cout << endl << "---Adaptiv cruise control---" << endl;
 		definedData();
 		cout << endl;
-		distanceObstacle = 20;
+		//distanceObstacle = 40;
 
-		//działanie sensora
+		//pętla tak długo, aż nie STOP.
+		while (choice != 0)
+		{
+			cout << endl << "If stop press 0: ";
+			cin >> choice;
+
+			if (choice == 0)
+			{
+				cout << "ACC Stop!";
+				break;
+			}
+
+			cout << "---Set distance obstacle: ";
+			cin >> distanceObstacle;
+
+			if (distanceObstacle < distanceDefined)
+			{
+		//handling (a = -10 km/h)
 		do
 		{
-			cout << endl << "!BRAKE!" << endl;
+					cout << endl << "-!BRAKE!-" << endl;
 
 			//obliczenie dystansu
 			distanceObstacle = distanceObstacle + floor(velocity * 0.278);
-			cout << "Virtual distance: " << distanceObstacle << endl;
+					cout << "Virtual distance: " << distanceObstacle << " m" << endl;
 
 			//obliczenie prędkości
 			velocity = velocity - 10;
-			cout << "Virtual velocity: " << velocity << endl << endl;
+					cout << "Virtual velocity: " << velocity << " km/h" << endl << endl;
+
+			//naprawić z tym definiowaniem prędkości
+			getData();
+		} while (distanceObstacle <= distanceDefined);
+			}
+
+			else if (distanceObstacle > distanceDefined && velocity != velocityDefined)
+			{
+		//acceleration (a = 10 km/h)
+		do
+		{
+					cout << endl << "-!Acceleration!-" << endl;
+
+			//obliczenie dystansu
+					distanceObstacle = distanceObstacle - floor(velocity * 0.278);
+					cout << "Virtual distance: " << distanceObstacle << " m" << endl;
+
+			//obliczenie prędkości
+					velocity = velocity + 10;
+					cout << "Virtual velocity: " << velocity << " km/h" << endl << endl;
 
 			//naprawić z tym definiowaniem prędkości
 				getData();
-		} while (distanceObstacle <= distanceDefined);
+				} while (distanceObstacle >= distanceDefined);
+			}
+		}
+
 		break;
 
 		//Normal
