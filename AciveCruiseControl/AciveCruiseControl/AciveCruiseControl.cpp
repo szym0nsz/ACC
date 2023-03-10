@@ -308,7 +308,7 @@ void Parameters::command() {
 
 int main()
 {
-	//otworzenie obiektu p1
+	//utworzenie obiektu p1
 	Parameters p1;
 	cin >> p1;
 
