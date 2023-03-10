@@ -1,10 +1,10 @@
 ﻿#include <iostream>
 #include <cmath>
 #include <stdio.h>
-//#include "Driver.h"
 
 using namespace std;
 
+//klasa Parameters
 class Parameters
 {
 private:
@@ -39,7 +39,7 @@ public:
 	friend istream& operator>>(istream& in, Parameters& obiekt);
 
 	//destructor
-	//~Parameters() { delete velocity, distance, test; }
+	//~Parameters() { delete distance, distanceDefined, distanceObstacle, choice, choiceCruise, test, activityV, activityD; }
 };
 
 
@@ -59,7 +59,16 @@ istream& operator>>(istream& in, Parameters& obiekt) {
 	return in;
 }
 
-void emergencyStop() { cout << "Emergency Stop!"; };
+//emergency stop
+string* emergencyStop() {
+
+	//dynamic memory alocation
+	static string* s;
+	s = new string;
+	*s = "Emergency Stop!";
+
+	return s; 
+};
 
 //zmiana parametrów: velocity, distance
 void Parameters::changeV(char activityV) {
@@ -90,6 +99,7 @@ void Parameters::changeD(char activityD) {
 	}
 }
 
+//funkcja definiująca rodzaj tempomatu
 void Parameters::CruiseType() {
 	//dystans na sekundę - zerowanie
 	auto s = 0;
@@ -170,7 +180,7 @@ void Parameters::CruiseType() {
 	}
 };
 
-//wyświetlanie aktualnych zdefiniowanych danych
+//wyświetlanie zdefiniowanych danych pojazdu
 void Parameters::definedData() {
 
 	switch (choiceCruise)
@@ -188,12 +198,13 @@ void Parameters::definedData() {
 	}
 }
 
+//wyświetlanie chwilowych (niezapisanych) danych pojazdu
 void Parameters::getData() {
 	cout << "Velocity: " << velocity << " km/h" << endl;
 	cout << "Distance: " << distance << " m" << endl;
 }
 
-//pętla wyboru
+//pętla działania programu
 void Parameters::command() {
 
 	while (choice != 0)
@@ -213,7 +224,13 @@ void Parameters::command() {
 	switch (choice)
 	{
 		case 0:
-			emergencyStop();
+			//creation pointer
+			string * pS;
+			pS = emergencyStop();
+			cout << * pS << endl;
+
+			//memory release for emergencyStop()
+			delete (pS);
 			break;
 
 		case 6:
@@ -233,7 +250,7 @@ void Parameters::command() {
 	case 2:
 			changeV('+');
 
-			//wyłapanie wyjątku powyżej 210km/h
+			//catch exception < 210km/h
 			try {
 				if (velocity > 210) {
 					velocity--;
@@ -242,7 +259,7 @@ void Parameters::command() {
 			getData();
 			}
 			catch (int excV) { 
-				//zamiast getData();
+				//instead of getData();
 			cout << "Velocity: " << excV << " km/h" << endl;
 			cout << "Distance: " << distance << " m" << endl;
 			}
@@ -251,7 +268,7 @@ void Parameters::command() {
 		case 3:
 			changeV('-');
 
-			//wyłapanie wyjątku poniżej 30km/h
+			//catch exception < 30km/h
 			try {
 				if (velocity < 30) {
 					velocity++;
@@ -260,7 +277,7 @@ void Parameters::command() {
 			getData();
 			}
 			catch (int excV) {
-				//zamiast getData();
+				//instead of getData();
 				cout << "Velocity: " << excV << " km/h" << endl;
 				cout << "Distance: " << distance << " m" << endl;
 			}
@@ -269,7 +286,7 @@ void Parameters::command() {
 		case 4:
 			changeD('+');
 
-			//wyłapanie wyjątku powyżej 200m
+			//catch exception > 200m
 			try {
 				if (distance > 200) {
 					distance = distance - 10;
@@ -278,7 +295,7 @@ void Parameters::command() {
 			getData();
 			}
 			catch (int excD) {
-				//zamiast getData();
+				//instead of getData();
 				cout << "Velocity: " << velocity << " km/h" << endl;
 				cout << "Distance: " << excD << " m" << endl;
 			}
@@ -287,7 +304,7 @@ void Parameters::command() {
 		case 5:
 			changeD('-');
 
-			//wyłapanie wyjątku poniżej 50m
+			//catch exception < 50m
 			try {
 				if (distance < 50) {
 					distance = distance + 10;
@@ -296,7 +313,7 @@ void Parameters::command() {
 			getData();
 			}
 			catch (int excD) {
-				//zamiast getData();
+				//instead of getData();
 				cout << "Velocity: " << velocity << " km/h" << endl;
 				cout << "Distance: " << excD << " m" << endl;
 			}
@@ -305,10 +322,9 @@ void Parameters::command() {
 }
 }
 
-
 int main()
 {
-	//utworzenie obiektu p1
+	//utworzenie obiektu p1 klasy 
 	Parameters p1;
 	cin >> p1;
 
