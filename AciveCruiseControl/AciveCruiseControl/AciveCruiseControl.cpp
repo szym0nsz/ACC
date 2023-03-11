@@ -42,7 +42,6 @@ public:
 	//~Parameters() { delete distance, distanceDefined, distanceObstacle, choice, choiceCruise, test, activityV, activityD; }
 };
 
-
 //przeciążenie operatora in:
 istream& operator>>(istream& in, Parameters& obiekt) {
 	
@@ -324,10 +323,12 @@ void Parameters::command() {
 
 int main()
 {
-	//utworzenie obiektu p1 klasy 
+	//p1 object creation in class Parameters 
 	Parameters p1;
 	cin >> p1;
 
 	p1.command();
 	
 }
+
+
