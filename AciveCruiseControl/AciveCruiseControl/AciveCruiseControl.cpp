@@ -34,7 +34,7 @@ public:
 	void command();
 	void changeD(char activityD);
 	void changeV(char activityV);
-	void CruiseType();
+	void cruiseType();
 
 	friend istream& operator>>(istream& in, Parameters& obiekt);
 
@@ -99,7 +99,7 @@ void Parameters::changeD(char activityD) {
 }
 
 //funkcja definiująca rodzaj tempomatu
-void Parameters::CruiseType() {
+void Parameters::cruiseType() {
 	//dystans na sekundę - zerowanie
 	auto s = 0;
 	auto t = 0;
