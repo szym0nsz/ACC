@@ -42,10 +42,10 @@ public:
 	//~Parameters() { delete distance, distanceDefined, distanceObstacle, choice, choiceCruise, test, activityV, activityD; }
 };
 
-//przeciążenie operatora in:
+//operator in:
 istream& operator>>(istream& in, Parameters& obiekt) {
 	
-	//pętla testu działania
+	//test loop
 	while (obiekt.test == 0)
 	{
 		cout << "Result: ";
@@ -69,7 +69,7 @@ string* emergencyStop() {
 	return s; 
 };
 
-//zmiana parametrów: velocity, distance
+//velocity modification
 void Parameters::changeV(char activityV) {
 	switch (activityV)
 	{
@@ -83,16 +83,15 @@ void Parameters::changeV(char activityV) {
 	}
 }
 
+//distance modification
 void Parameters::changeD(char activityD) {
 	switch (activityD)
 	{
 	case '+':
-		//wyjątek21
 		distance = distance + 10;
 		break;
 
 	case '-':
-		//wyjątek22
 		distance = distance - 10;
 		break;
 	}
