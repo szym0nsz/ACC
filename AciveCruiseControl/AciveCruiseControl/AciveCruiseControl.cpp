@@ -45,14 +45,14 @@ public:
 //przeciążenie operatora in:
 istream& operator>>(istream& in, Parameters& obiekt) {
 	
-	//pętla tak długo, aż pozytywny test
+	//pętla testu działania
 	while (obiekt.test == 0)
 	{
 		cout << "Result: ";
 		in >> obiekt.test;
 
-		if (obiekt.test == 1) { cout << endl << "System is ready to work." << endl << endl; }
-		else { cout << "ERROR! Check manual!" << endl; }
+		if (obiekt.test == 1)	{ cout << endl << "System is ready to work." << endl << endl; }
+		else					{ cout << "ERROR! Check manual!" << endl; }
 	}
 
 	return in;
@@ -237,7 +237,7 @@ void Parameters::command() {
 			cout << '\t' << "1. Adaptiv" << endl << '\t' << "2. Normal" << endl<<"enter type: ";
 
 			cin >> choiceCruise;
-			CruiseType();
+			cruiseType();
 			break;
 
 	case 1:
@@ -325,8 +325,11 @@ int main()
 {
 	//p1 object creation in class Parameters 
 	Parameters p1;
+
+	//use of operator>> for the p1 object
 	cin >> p1;
 
+	//use of function command() for p1 object
 	p1.command();
 	
 }
