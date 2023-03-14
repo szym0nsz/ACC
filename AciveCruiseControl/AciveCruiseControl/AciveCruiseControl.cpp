@@ -167,7 +167,6 @@ void Parameters::cruiseType() {
 				} while (distanceObstacle >= distanceDefined);
 			}
 		}
-
 		break;
 
 		//Normal
