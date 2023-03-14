@@ -134,15 +134,15 @@ void Parameters::cruiseType() {
 		{
 					cout << endl << "-!BRAKE!-" << endl;
 
-			//obliczenie dystansu
+					//calculate distance
 			distanceObstacle = distanceObstacle + floor(velocity * 0.278);
 					cout << "Virtual distance: " << distanceObstacle << " m" << endl;
 
-			//obliczenie prędkości
+					//calculate velocity
 			velocity = velocity - 10;
 					cout << "Virtual velocity: " << velocity << " km/h" << endl << endl;
 
-			//naprawić z tym definiowaniem prędkości
+					//naprawić z tym definiowaniem prędkości
 			getData();
 		} while (distanceObstacle <= distanceDefined);
 			}
@@ -154,11 +154,11 @@ void Parameters::cruiseType() {
 		{
 					cout << endl << "-!Acceleration!-" << endl;
 
-			//obliczenie dystansu
+					//calculate distance
 					distanceObstacle = distanceObstacle - floor(velocity * 0.278);
 					cout << "Virtual distance: " << distanceObstacle << " m" << endl;
 
-			//obliczenie prędkości
+					//calculate velocity
 					velocity = velocity + 10;
 					cout << "Virtual velocity: " << velocity << " km/h" << endl << endl;
 
