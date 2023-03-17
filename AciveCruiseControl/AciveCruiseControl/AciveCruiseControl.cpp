@@ -110,9 +110,8 @@ void Parameters::cruiseType() {
 		cout << endl << "---Adaptiv cruise control---" << endl;
 		definedData();
 		cout << endl;
-		//distanceObstacle = 40;
 
-		//pętla tak długo, aż nie STOP.
+		//pętla STOP.
 		while (choice != 0)
 		{
 			cout << endl << "If stop press 0: ";
@@ -161,6 +160,7 @@ void Parameters::cruiseType() {
 					//calculate velocity
 					velocity = velocity + 10;
 					cout << "Virtual velocity: " << velocity << " km/h" << endl << endl;
+
 
 			//naprawić z tym definiowaniem prędkości
 				getData();
