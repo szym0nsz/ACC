@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <cmath>
 #include <stdio.h>
+#include<memory>
 
 using namespace std;
 
@@ -97,9 +98,8 @@ void Parameters::changeD(char activityD) {
 	}
 }
 
-//funkcja definiująca rodzaj tempomatu
+//cruiseType defining
 void Parameters::cruiseType() {
-	//dystans na sekundę - zerowanie
 	auto s = 0;
 	auto t = 0;
 	
@@ -111,7 +111,7 @@ void Parameters::cruiseType() {
 		definedData();
 		cout << endl;
 
-		//pętla STOP.
+		//STOP loop
 		while (choice != 0)
 		{
 			cout << endl << "If stop press 0: ";
@@ -201,7 +201,7 @@ void Parameters::getData() {
 	cout << "Distance: " << distance << " m" << endl;
 }
 
-//pętla działania programu
+//functional loop
 void Parameters::command() {
 
 	while (choice != 0)
@@ -321,7 +321,7 @@ void Parameters::command() {
 
 int main()
 {
-	//p1 object creation in class Parameters 
+	/*/p1 object creation in class Parameters 
 	Parameters p1;
 
 	//use of operator>> for the p1 object
@@ -329,7 +329,16 @@ int main()
 
 	//use of function command() for p1 object
 	p1.command();
+	*/
+
+
+	int *ptr = new int(30);
+	cout << "ptr: " << ptr << endl;
+	cout << "*ptr: " << *ptr << endl;
 	
+	ptr = new int(40);
+	cout << "ptr2: " << ptr << endl;
+	cout << "*ptr2: " << *ptr << endl;
 }
 
 
