@@ -24,9 +24,7 @@ public:
 		char pActivityV = ' ', char pActivityD = ' ', int pChoice = 1, int pChoiceCruise = 1, int distanceObstacle = 50) : velocity(pVelocity), 
 		velocityDefined(pVelocityDefined), distance(pDistance), distanceDefined(pDistanceDefined), test(pTest), activityV(pActivityV), activityD(pActivityD), 
 		choice(pChoice), choiceCruise(pChoiceCruise){
-		//dynamic memory allocation 
-		//velocity = new int;
-		//distance = new int;
+
 		cout << "---ACC START SYSTEM---" << endl << endl;
 		cout << "Check system..." << endl;
 	}
@@ -39,8 +37,6 @@ public:
 
 	friend istream& operator>>(istream& in, Parameters& obiekt);
 
-	//destructor
-	//~Parameters() { delete distance, distanceDefined, distanceObstacle, choice, choiceCruise, test, activityV, activityD; }
 };
 
 //operator in:
@@ -141,7 +137,6 @@ void Parameters::cruiseType() {
 			velocity = velocity - 10;
 					cout << "Virtual velocity: " << velocity << " km/h" << endl << endl;
 
-					//naprawić z tym definiowaniem prędkości
 			getData();
 		} while (distanceObstacle <= distanceDefined);
 			}
@@ -161,8 +156,6 @@ void Parameters::cruiseType() {
 					velocity = velocity + 10;
 					cout << "Virtual velocity: " << velocity << " km/h" << endl << endl;
 
-
-			//naprawić z tym definiowaniem prędkości
 				getData();
 				} while (distanceObstacle >= distanceDefined);
 			}
@@ -177,7 +170,7 @@ void Parameters::cruiseType() {
 	}
 };
 
-//wyświetlanie zdefiniowanych danych pojazdu
+//definedData function
 void Parameters::definedData() {
 
 	switch (choiceCruise)
@@ -195,7 +188,7 @@ void Parameters::definedData() {
 	}
 }
 
-//wyświetlanie chwilowych (niezapisanych) danych pojazdu
+//getData function
 void Parameters::getData() {
 	cout << "Velocity: " << velocity << " km/h" << endl;
 	cout << "Distance: " << distance << " m" << endl;
@@ -231,7 +224,6 @@ void Parameters::command() {
 			break;
 
 		case 6:
-			//odwołanie do funkcji
 			cout << '\t' << "1. Adaptiv" << endl << '\t' << "2. Normal" << endl<<"enter type: ";
 
 			cin >> choiceCruise;
@@ -321,7 +313,7 @@ void Parameters::command() {
 
 int main()
 {
-	/*/p1 object creation in class Parameters 
+	//p1 object creation in class Parameters 
 	Parameters p1;
 
 	//use of operator>> for the p1 object
@@ -329,16 +321,7 @@ int main()
 
 	//use of function command() for p1 object
 	p1.command();
-	*/
 
-
-	int *ptr = new int(30);
-	cout << "ptr: " << ptr << endl;
-	cout << "*ptr: " << *ptr << endl;
-	
-	ptr = new int(40);
-	cout << "ptr2: " << ptr << endl;
-	cout << "*ptr2: " << *ptr << endl;
 }
 
 
